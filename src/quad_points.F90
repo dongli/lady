@@ -1,6 +1,6 @@
 module quad_points
 
-  use sizes
+  use commons
   use shape_function
 
   implicit none
@@ -8,15 +8,15 @@ module quad_points
   private
 
   public quad_points_init
-  public quad_points_transfer_from_parcels
+  public quad_points_final
 
-  real, allocatable :: Wq(:)         ! Quadrature weights
-  real, allocatable :: Fq(:)         ! Shape function values
-  real, allocatable :: Yq(:,:)       ! Quadrature body coordinates
-  real, allocatable :: Xq(:,:,:)     ! Quadrature space coordinates
-  real, allocatable :: Tq(:,:)       ! Temperature on quadrature points
-  real, allocatable :: Vq(:,:,:)     ! Velocity on quadrature points
-  real, allocatable :: Rhoq(:,:,:,:) ! Mass density on quadrature points
+  real, public, allocatable :: Wq(:)         ! Quadrature weights
+  real, public, allocatable :: Fq(:)         ! Shape function values
+  real, public, allocatable :: Yq(:,:)       ! Quadrature body coordinates
+  real, public, allocatable :: Xq(:,:,:)     ! Quadrature space coordinates
+  real, public, allocatable :: Tq(:,:)       ! Temperature on quadrature points
+  real, public, allocatable :: Vq(:,:,:)     ! Velocity on quadrature points
+  real, public, allocatable :: Rhoq(:,:,:,:) ! Mass density on quadrature points
 
 contains
 
@@ -49,18 +49,6 @@ contains
     end do
 
   end subroutine quad_points_init
-
-  subroutine quad_points_transfer_from_parcels()
-
-    ! Calulate temperature, velocity on quadrature points.
-
-    integer pi, qi, di
-
-    do pi = 1, num_parcel
-      
-    end do
-
-  end subroutine quad_points_transfer_from_parcels
 
   subroutine quad_points_final()
 

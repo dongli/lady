@@ -1,12 +1,13 @@
 module parcels
 
-  use sizes
+  use commons
 
   implicit none
 
   private
 
   public parcels_init
+  public parcels_final
   public parcels_get_space_coord
   public parcels_get_body_coord
 

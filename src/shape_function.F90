@@ -1,6 +1,6 @@
 module shape_function
 
-  use sizes
+  use commons
 
   implicit none
 

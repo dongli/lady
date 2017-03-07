@@ -5,7 +5,8 @@ project (lady Fortran)
 set (CMAKE_Fortran_FLAGS "-fdefault-real-8")
 
 set (src
-  "${PROJECT_SOURCE_DIR}/src/sizes.F90"
+  "${PROJECT_SOURCE_DIR}/src/commons.F90"
+  "${PROJECT_SOURCE_DIR}/src/cartesian_domain.F90"
 	# "${PROJECT_SOURCE_DIR}/src/kinetic_energy.F90"
   # "${PROJECT_SOURCE_DIR}/src/internal_energy.F90"
   # "${PROJECT_SOURCE_DIR}/src/potential_energy.F90"
@@ -16,3 +17,6 @@ set (src
 )
 
 add_library (lady ${src})
+
+add_executable (shallow_water_driver ${PROJECT_SOURCE_DIR}/src/shallow_water_driver.F90)
+target_link_libraries (shallow_water_driver lady)
