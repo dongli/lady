@@ -7,6 +7,7 @@ set (CMAKE_Fortran_FLAGS "-fdefault-real-8")
 set (src
   "${PROJECT_SOURCE_DIR}/src/commons.F90"
   "${PROJECT_SOURCE_DIR}/src/cartesian_domain.F90"
+  "${PROJECT_SOURCE_DIR}/src/cartesian_mesh.F90"
 	# "${PROJECT_SOURCE_DIR}/src/kinetic_energy.F90"
   # "${PROJECT_SOURCE_DIR}/src/internal_energy.F90"
   # "${PROJECT_SOURCE_DIR}/src/potential_energy.F90"
