@@ -25,7 +25,9 @@ contains
     allocate(Hp(num_dim,num_dim,num_parcel))
     allocate(Ip(num_dim,num_dim,num_parcel))
     allocate(Mp(num_parcel))
-    allocate(Up(num_parcel))
+    if (run_mode /= 'advection') then
+      allocate(Up(num_parcel))
+    end if
 
   end subroutine parcels_init
 
@@ -35,10 +37,11 @@ contains
 
   subroutine parcels_final()
 
-    deallocate(Xp)
-    deallocate(Hp)
-    deallocate(Mp)
-    deallocate(Up)
+    if (allocated(Xp)) deallocate(Xp)
+    if (allocated(Hp)) deallocate(Hp)
+    if (allocated(Ip)) deallocate(Ip)
+    if (allocated(Mp)) deallocate(Mp)
+    if (allocated(Up)) deallocate(Up)
 
   end subroutine parcels_final
 

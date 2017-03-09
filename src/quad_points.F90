@@ -24,6 +24,8 @@ contains
 
     integer qi, di, offset, ai(num_dim)
 
+    if (run_mode == 'advection') return
+
     num_quad_point = num_quad_point_span ** num_dim
 
     allocate(Wq(num_quad_point))
@@ -52,12 +54,12 @@ contains
 
   subroutine quad_points_final()
 
-    deallocate(Wq)
-    deallocate(Yq)
-    deallocate(Xq)
-    deallocate(Tq)
-    deallocate(Vq)
-    deallocate(Rhoq)
+    if (allocated(Wq)) deallocate(Wq)
+    if (allocated(Yq)) deallocate(Yq)
+    if (allocated(Xq)) deallocate(Xq)
+    if (allocated(Tq)) deallocate(Tq)
+    if (allocated(Vq)) deallocate(Vq)
+    if (allocated(Rhoq)) deallocate(Rhoq)
 
   end subroutine quad_points_final
 

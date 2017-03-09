@@ -13,17 +13,16 @@ module lady
   public lady_init
   public lady_final
 
-  character(30) mode
   character(30) domain
 
 contains
 
-  subroutine lady_init(mode_, num_parcel_)
+  subroutine lady_init(run_mode_, num_parcel_)
 
-    character(*), intent(in) :: mode_
+    character(*), intent(in) :: run_mode_
     integer, intent(in) :: num_parcel_
 
-    mode = mode_
+    run_mode = run_mode_
     num_parcel = num_parcel_
 
     call parcels_init()
