@@ -1,4 +1,4 @@
-module kinetic_energy
+module kinetic_energy_mod
 
   ! This module provides an interface of kinetic energy.
 
@@ -8,4 +8,4 @@ contains
 
 
 
-end module kinetic_energy
+end module kinetic_energy_mod

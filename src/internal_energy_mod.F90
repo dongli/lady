@@ -1,4 +1,4 @@
-module internal_energy
+module internal_energy_mod
 
   ! This module provides an interface of internal energy.
 
@@ -8,4 +8,4 @@ contains
 
 
 
-end module internal_energy
+end module internal_energy_mod

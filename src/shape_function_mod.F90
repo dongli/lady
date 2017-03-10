@@ -1,40 +1,48 @@
-module shape_function
+module shape_function_mod
 
-  use commons
+  use commons_mod
 
   implicit none
 
   private
 
-  public num_quad_point_span
-  public shape_function_J
-  public quad_point_nodes
-  public quad_point_weights
   public shape_function_init
   public shape_function_eval
   public shape_function_diff
 
-  integer, parameter :: num_quad_point_span = 5 ! Quadrature point number along each direction.
-  real, parameter :: shape_function_J = 1.0d0 / 12.0d0
-  real, parameter :: shape_function_C = 4.0d0 / 3.0d0
+  public shape_function
 
-  real quad_point_nodes(num_quad_point_span)
-  real quad_point_weights(num_quad_point_span)
+  type shape_function_type
+    integer num_quad_point_span ! Quadrature point number along each direction.
+    real J
+    real C
+    real, allocatable :: quad_point_nodes(:)
+    real, allocatable :: quad_point_weights(:)
+  end type shape_function_type
+
+  type(shape_function_type) shape_function
 
 contains
 
   subroutine shape_function_init()
 
-    quad_point_nodes(1)   =  -2.0d0/3.0d0
-    quad_point_nodes(2)   =  -1.0d0/3.0d0
-    quad_point_nodes(3)   =         0.0d0
-    quad_point_nodes(4)   =   1.0d0/3.0d0
-    quad_point_nodes(5)   =   2.0d0/3.0d0
-    quad_point_weights(1) =  41.0d0/1280.0d0
-    quad_point_weights(2) = 316.0d0/1280.0d0
-    quad_point_weights(3) = 566.0d0/1280.0d0
-    quad_point_weights(4) = 316.0d0/1280.0d0
-    quad_point_weights(5) =  41.0d0/1280.0d0
+    shape_function%num_quad_point_span = 5
+    shape_function%J = 1.0 / 12.0
+    shape_function%C = 4.0 / 3.0
+
+    allocate(shape_function%quad_point_nodes(shape_function%num_quad_point_span))
+    allocate(shape_function%quad_point_weights(shape_function%num_quad_point_span))
+
+    shape_function%quad_point_nodes(1)   =  -2.0d0/3.0d0
+    shape_function%quad_point_nodes(2)   =  -1.0d0/3.0d0
+    shape_function%quad_point_nodes(3)   =         0.0d0
+    shape_function%quad_point_nodes(4)   =   1.0d0/3.0d0
+    shape_function%quad_point_nodes(5)   =   2.0d0/3.0d0
+    shape_function%quad_point_weights(1) =  41.0d0/1280.0d0
+    shape_function%quad_point_weights(2) = 316.0d0/1280.0d0
+    shape_function%quad_point_weights(3) = 566.0d0/1280.0d0
+    shape_function%quad_point_weights(4) = 316.0d0/1280.0d0
+    shape_function%quad_point_weights(5) =  41.0d0/1280.0d0
 
   end subroutine shape_function_init
 
@@ -46,7 +54,7 @@ contains
     integer i
 
     f = 1.0d0
-    do i = 1, num_dim
+    do i = 1, commons%num_dim
       if (-1.0d0 <= y(i) .and. y(i) <= -0.5d0) then
         f = f * (2.0d0 * (1.0d0 + y(i))**3.0d0)
       else if (-0.5d0 <= y(i) .and. y(i) <= 0.0d0) then
@@ -57,7 +65,7 @@ contains
         f = f * (2.0d0 * (1.0d0 - y(i))**3.0d0)
       end if
     end do
-    f = f * shape_function_C
+    f = f * shape_function%C
 
   end subroutine shape_function_eval
 
@@ -69,8 +77,8 @@ contains
     integer i, j
 
     df(:) = 1.0d0
-    do j = 1, num_dim
-      do i = 1, num_dim
+    do j = 1, commons%num_dim
+      do i = 1, commons%num_dim
         if (df(j) == 0.0d0) cycle
         if (i == j) then
           if (-1.0d0 <= y(i) .and. y(i) <= -0.5d0) then
@@ -99,8 +107,8 @@ contains
         end if
       end do
     end do
-    df(:) = df(:) * shape_function_C
+    df(:) = df(:) * shape_function%C
 
   end subroutine shape_function_diff
 
-end module shape_function
+end module shape_function_mod

@@ -1,4 +1,4 @@
-module potential_energy
+module potential_energy_mod
 
   ! This module provides an interface of potential energy.
 
@@ -8,4 +8,4 @@ contains
 
 
 
-end module potential_energy
+end module potential_energy_mod
